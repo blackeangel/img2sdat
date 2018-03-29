@@ -40,45 +40,43 @@ except IndexError:
 def main(argv):
     global input
 
-    if len(sys.argv) < 3:
-        outdir = os.path.realpath(os.path.dirname(sys.argv[1])) + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
-        #outdir = './system'
+    if len(sys.argv) < 4:
+        if sys.argv[2].isdigit():
+            version = int(sys.argv[2])
+            outdir = os.path.realpath(os.path.dirname(sys.argv[1])) + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
+        else:
+            version = 4
+            item = True
+            while item:
+                print('''            1. Android Lollipop 5.0
+			    2. Android Lollipop 5.1
+			    3. Android Marshmallow 6.0
+			    4. Android Nougat 7.0/7.1/8.0
+			    ''')
+                try:
+                    input = raw_input
+                except NameError:
+                    pass
+                item = input('Choose system version: ')
+                if item == '1':
+                    version = 1
+                    break
+                elif item == '2':
+                    version = 2
+                    break
+                elif item == '3':
+                    version = 3
+                    break
+                elif item == '4':
+                    version = 4
+                    break
+                else:
+                    return
     else:
-        # outdir = sys.argv[2] + '/system'
+        version = int(sys.argv[3])
         outdir = sys.argv[2] + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
         if not os.path.exists(sys.argv[2]):
             os.makedirs(sys.argv[2])
-
-    if len(sys.argv) < 4:
-        version = 4
-        item = True
-        while item:
-            print('''            1. Android Lollipop 5.0
-            2. Android Lollipop 5.1
-            3. Android Marshmallow 6.0
-            4. Android Nougat 7.0/7.1/8.0
-            ''')
-            try:
-                input = raw_input
-            except NameError: pass
-            item = input('Choose system version: ')
-            if item == '1':
-                version = 1
-                break
-            elif item == '2':
-                version = 2
-                break
-            elif item == '3':
-                version = 3
-                break
-            elif item == '4':
-                version = 4
-                break
-            else:
-                return
-    else:
-        version = int(sys.argv[3])
-
     # Get sparse image
     image = sparse_img.SparseImage(INPUT_IMAGE, tempfile.mkstemp()[1], '0')
 
