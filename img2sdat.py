@@ -41,9 +41,13 @@ def main(argv):
     global input
 
     if len(sys.argv) < 3:
-        outdir = './system'
+        outdir = os.path.realpath(os.path.dirname(sys.argv[1])) + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
+        #outdir = './system'
     else:
-        outdir = sys.argv[2] + '/system'
+        # outdir = sys.argv[2] + '/system'
+        outdir = sys.argv[2] + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
+        if not os.path.exists(sys.argv[2]):
+            os.makedirs(sys.argv[2])
 
     if len(sys.argv) < 4:
         version = 4
