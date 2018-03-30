@@ -41,14 +41,13 @@ except IndexError:
 
 def __AndroidVersion():
     global input
-    version = 1
     item = True
     while item:
-        print('''            1. Android Lollipop 5.0
-    			    2. Android Lollipop 5.1
-    			    3. Android Marshmallow 6.0
-    			    4. Android Nougat 7.0/7.1/8.0
-    			    ''')
+        print('''1. Android Lollipop 5.0
+2. Android Lollipop 5.1
+3. Android Marshmallow 6.0
+4. Android Nougat 7.0/7.1/8.0
+''')
         try:
             input = raw_input
         except NameError:
@@ -75,7 +74,7 @@ def main(argv):
     if len(sys.argv) > 2 and len(sys.argv) < 4:
         if sys.argv[len(sys.argv)-1].isdigit():
             if int(sys.argv[len(sys.argv)-1]) < 5:
-                version = int(len(sys.argv)-1)
+                version = int(sys.argv[len(sys.argv)-1])
                 outdir = os.path.realpath(os.path.dirname(sys.argv[1])) + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
             else:
                 outdir = sys.argv[len(sys.argv)-1] + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
@@ -84,29 +83,26 @@ def main(argv):
                 version = __AndroidVersion()
         else:
             outdir = sys.argv[len(sys.argv) - 1] + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
-            if not os.path.exists(sys.argv[len(sys.argv) - 1]):
+            if not os.path.exists(os.path.dirname(sys.argv[len(sys.argv) - 1])):
                 os.makedirs(sys.argv[len(sys.argv) - 1])
             version = __AndroidVersion()
     else:
         if len(sys.argv) == 2:
             if sys.argv[len(sys.argv) - 1].isdigit():
                 if int(sys.argv[len(sys.argv) - 1]) < 5:
-                    version = int(len(sys.argv) - 1)
-                    outdir = os.path.realpath(os.path.dirname(sys.argv[1])) + os.sep + \
-                             os.path.basename(sys.argv[1]).split('.')[0]
-                else:
-                    outdir = sys.argv[len(sys.argv) - 1] + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
-                    if not os.path.exists(outdir):
-                        os.makedirs(outdir)
+                    version = int(sys.argv[len(sys.argv)-1])
+                    outdir = os.path.realpath(os.path.dirname(sys.argv[1])) + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
+            else:
+                    outdir = os.path.realpath(os.path.dirname(sys.argv[1])) + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
                     version = __AndroidVersion()
         else:
-            if int(sys.argv[len(sys.argv) - 1]) < 5:
-                version = int(sys.argv[len(sys.argv) - 1])
-            else:
-                version = __AndroidVersion()
-            outdir = sys.argv[2] + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
-            if not os.path.exists(sys.argv[2]):
-                os.makedirs(sys.argv[2])
+                if int(sys.argv[len(sys.argv) - 1]) < 5:
+                    version = int(sys.argv[len(sys.argv) - 1])
+                else:
+                    version = __AndroidVersion()
+                outdir = sys.argv[2] + os.sep + os.path.basename(sys.argv[1]).split('.')[0]
+                if not os.path.exists(sys.argv[2]):
+                    os.makedirs(sys.argv[2])
 
 
     # Get sparse image
