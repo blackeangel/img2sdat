@@ -77,7 +77,7 @@ def __FindStringInByteFile(word,file):
                 return rez.split("=")[1] #для текущей задачи сплит
 
 def __convertApi2ver(versionApi):
-    if versionApi == None:
+    if versionApi == "None":
         ver = 0
     elif versionApi == "21":
         ver=1
